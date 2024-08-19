@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button'
+import { HeaderMain } from './_components/HeaderMain'
 
 export default function Home() {
   return (
-    <>
-      <Button>Click Me</Button>
-    </>
+    <div>
+      <HeaderMain/>
+    </div>
   )
 }
