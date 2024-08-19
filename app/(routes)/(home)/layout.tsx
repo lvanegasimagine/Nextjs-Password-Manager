@@ -1,4 +1,5 @@
 import { Logo } from '@/components/shared/Logo'
+import Sidebar from '@/components/shared/Sidebar/Sidebar'
 import React from 'react'
 
 const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
@@ -12,7 +13,7 @@ const HomeLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
       </div>
       <div className="flex h-full">
         <div className='max-w-lg hidden lg:flex h-full w-72 flex-col fixed bg-blue-800 px-4 text-white'>
-            <p>Sidebar...</p>
+            <Sidebar/>
         </div>
         <div className="w-full lg:pl-72">
             <div className='p-6'>{children}</div>
