@@ -26,9 +26,13 @@ import { Copy, Earth, Eye, Shuffle } from 'lucide-react'
 import { CopyClipboard } from '@/lib/copyClipboard'
 import { generatePassword } from '@/lib/generatePassword'
 import { Textarea } from '@/components/ui/textarea'
+import { toast } from '@/components/ui/use-toast'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
 
 export function FormAddElement() {
   const [showPassword, setShowPassword] = React.useState(false)
+  const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,8 +48,27 @@ export function FormAddElement() {
     }
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await axios.post('/api/items', values)
+      toast({ title: 'Item Created' })
+
+      form.reset({
+        typeElement: '',
+        isFavorite: false,
+        name: '',
+        directory: '',
+        username: '',
+        password: '',
+        urlWebsite: '',
+        notes: '',
+        userId: 'cvbnmasd'
+      })
+
+      router.refresh()
+    } catch (error) {
+      toast({ title: 'Something went Wrong!', variant: 'destructive' })
+    }
   }
 
   const generateRandomPassword = () => {
