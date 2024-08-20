@@ -24,6 +24,8 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { Copy, Earth, Eye, Shuffle } from 'lucide-react'
 import { CopyClipboard } from '@/lib/copyClipboard'
+import { generatePassword } from '@/lib/generatePassword'
+import { Textarea } from '@/components/ui/textarea'
 
 export function FormAddElement() {
   const [showPassword, setShowPassword] = React.useState(false)
@@ -38,7 +40,7 @@ export function FormAddElement() {
       password: '',
       urlWebsite: '',
       notes: '',
-      userId: ''
+      userId: 'cvbnmasd'
     }
   })
 
@@ -46,10 +48,10 @@ export function FormAddElement() {
     console.log(values)
   }
 
-  // const generateRandomPassword = () => {
-  //   const password = generatePassword()
-  //   form.setValue('password', password)
-  // }
+  const generateRandomPassword = () => {
+    const password = generatePassword()
+    form.setValue('password', password)
+  }
 
   const updateUrl = () => {
     form.setValue('urlWebsite', window.location.href)
@@ -201,9 +203,7 @@ export function FormAddElement() {
                   <Shuffle
                     className="cursor-pointer"
                     size={15}
-                    onClick={() => {
-                      console.log('generate password')
-                    }}
+                    onClick={generateRandomPassword}
                   />
                 </FormLabel>
                 <FormControl>
@@ -232,7 +232,30 @@ export function FormAddElement() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <div className="">
+            <div className="flex items-center justify-between text-sm text-slate-400">
+              Autenticación TOTP
+              <p className="mb-2 mr-5 rounded-lg bg-green-700 px-3 text-xs text-white">
+                Premium
+              </p>
+            </div>
+            <Input disabled />
+          </div>
+          <FormField
+            control={form.control}
+            name="notes"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Notes</FormLabel>
+                <FormControl>
+                  <Textarea {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div />
+          <Button type="submit">Guardar</Button>
         </form>
       </Form>
     </div>
