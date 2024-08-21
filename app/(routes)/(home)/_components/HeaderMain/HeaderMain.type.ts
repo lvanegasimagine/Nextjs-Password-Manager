@@ -5,3 +5,7 @@ export interface DataHeaderMainItemProps {
   typeElement: TypeElement
   text: string
 }
+
+export interface HeaderMainProps {
+  userId: string
+}

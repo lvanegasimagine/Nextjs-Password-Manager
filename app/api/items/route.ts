@@ -11,7 +11,7 @@ export async function POST(req: Request) {
       }
     })
 
-    return NextResponse.json(element)
+    return NextResponse.json(element, { status: 201 })
   } catch (error) {
     console.error(error)
     return new NextResponse('Internal Error', { status: 500 })
