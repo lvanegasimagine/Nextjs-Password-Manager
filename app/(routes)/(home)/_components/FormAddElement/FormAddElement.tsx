@@ -29,8 +29,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import { type FormAddElementProps } from './FormAddElement.type'
 
-export function FormAddElement() {
+export function FormAddElement({ userId }: FormAddElementProps) {
   const [showPassword, setShowPassword] = React.useState(false)
   const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,14 +45,22 @@ export function FormAddElement() {
       password: '',
       urlWebsite: '',
       notes: '',
-      userId: 'cvbnmasd'
+      userId
     }
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      await axios.post('/api/items', values)
+      console.log('🚀 ~ onSubmit ~ values:', values)
+      const response = await axios.post('/api/items', values)
       toast({ title: 'Item Created' })
+
+      if (response.status === 201) {
+        router.push('/')
+        toast({ title: 'Registro realizado con exito!' })
+      } else {
+        toast({ title: 'Error al registrar!', variant: 'destructive' })
+      }
 
       form.reset({
         typeElement: '',
@@ -61,8 +70,7 @@ export function FormAddElement() {
         username: '',
         password: '',
         urlWebsite: '',
-        notes: '',
-        userId: 'cvbnmasd'
+        notes: ''
       })
 
       router.refresh()

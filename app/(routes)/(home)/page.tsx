@@ -22,10 +22,14 @@ export default async function Home() {
       }
     }
   })
+
+  if (!user) {
+    return redirect('/')
+  }
   console.log('🚀 ~ Home ~ session:', user)
   return (
     <div>
-      <HeaderMain/>
+      <HeaderMain userId={user.id}/>
     </div>
   )
 }

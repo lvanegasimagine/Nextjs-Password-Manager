@@ -18,8 +18,9 @@ import { Button } from '@/components/ui/button'
 import { ChevronDown } from 'lucide-react'
 import { DataHeaderMain } from './HeaderMain.data'
 import { FormAddElement } from '../FormAddElement'
+import { type HeaderMainProps } from './HeaderMain.type'
 
-export function HeaderMain() {
+export function HeaderMain({ userId }: HeaderMainProps) {
   const [typeElement, setTypeElement] = useState<'password' | 'folder' | ''>()
   const [openDialog, setOpenDialog] = useState(false)
   const [openDropdown, setOpenDropdown] = useState(false)
@@ -66,7 +67,7 @@ export function HeaderMain() {
           <DialogHeader>
             <DialogTitle>Nuevo Elemento</DialogTitle>
           </DialogHeader>
-          {typeElement === 'password' && <FormAddElement />}
+          {typeElement === 'password' && <FormAddElement userId={userId}/>}
         </DialogContent>
       </Dialog>
     </div>
