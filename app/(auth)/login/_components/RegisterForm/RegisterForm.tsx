@@ -10,17 +10,19 @@ import { z } from 'zod'
 
 const formSchema = z.object({
   email: z.string().min(2).max(50),
-  password: z.string().min(2).max(50)
+  password: z.string().min(2).max(50),
+  username: z.string().min(2).max(50)
 })
 
-export function LoginForm() {
+export function RegisterForm() {
   const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
+      username: ''
     }
   })
 
@@ -31,6 +33,19 @@ export function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full mt-5 space-y-3 text-black">
+      <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+                <FormLabel>Username</FormLabel>
+                <FormControl>
+                    <Input placeholder='JohnDoe' {...field}/>
+                </FormControl>
+                <FormMessage/>
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="email"
@@ -57,7 +72,7 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button className='w-full' type='submit'>Login</Button>
+        <Button className='w-full' type='submit'>Register</Button>
       </form>
     </Form>
   )

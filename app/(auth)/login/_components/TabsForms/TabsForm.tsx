@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { LoginForm } from '../LoginForm'
+import { RegisterForm } from '../RegisterForm'
 
 export function TabsForm() {
   return (
@@ -20,7 +21,7 @@ export function TabsForm() {
         <TabsContent value='signup'>
             <Card>
                 <CardContent>
-                    <p>Signup from...</p>
+                    <RegisterForm/>
                 </CardContent>
             </Card>
         </TabsContent>
