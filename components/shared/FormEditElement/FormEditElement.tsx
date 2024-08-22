@@ -12,7 +12,6 @@ import {
 import { Input } from '@/components/ui/input'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { formSchema } from './FormAddElement.form'
 import { type z } from 'zod'
 import {
   Select,
@@ -24,55 +23,47 @@ import {
 import { Checkbox } from '@/components/ui/checkbox'
 import { Copy, Earth, Eye, Shuffle } from 'lucide-react'
 import { CopyClipboard } from '@/lib/copyClipboard'
-import { generatePassword } from '@/lib/generatePassword'
+// import { generatePassword } from '@/lib/generatePassword'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from '@/components/ui/use-toast'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { type FormAddElementProps } from './FormAddElement.type'
+import { type FormEditElementProps } from './FormEditElement.types'
+import { formSchema } from './FormEditElement.form'
+import { generatePassword } from '@/lib/generatePassword'
 
-export function FormAddElement({ userId, closeDialog }: FormAddElementProps) {
+export const FormEditElement = ({ dataElement }: FormEditElementProps) => {
   const [showPassword, setShowPassword] = React.useState(false)
+
   const router = useRouter()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      typeElement: '',
-      isFavorite: false,
-      name: '',
-      directory: '',
-      username: '',
-      password: '',
-      urlWebsite: '',
-      notes: '',
-      userId
+      typeElement: dataElement.typeElement,
+      isFavorite: dataElement.isFavorite,
+      name: dataElement.name || '',
+      directory: dataElement.directory || '',
+      username: dataElement.username || '',
+      password: dataElement.password || '',
+      urlWebsite: dataElement.urlWebsite || '',
+      notes: dataElement.notes || '',
+      userId: dataElement.userId
     }
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      const response = await axios.post('/api/items', values)
-      toast({ title: 'Item Created' })
+      const response = await axios.patch(
+        `/api/items/${dataElement.id}`,
+        values
+      )
 
-      if (response.status === 201) {
-        router.push('/')
-        toast({ title: 'Registro realizado con exito!' })
+      if (response.status === 200) {
+        toast({ title: 'Item Updated! 👌' })
       } else {
-        toast({ title: 'Error al registrar!', variant: 'destructive' })
+        toast({ title: 'Error al actualizar!', variant: 'destructive' })
       }
-
-      form.reset({
-        typeElement: '',
-        isFavorite: false,
-        name: '',
-        directory: '',
-        username: '',
-        password: '',
-        urlWebsite: '',
-        notes: ''
-      })
-      closeDialog()
-      router.refresh()
+      router.push('/')
     } catch (error) {
       toast({ title: 'Something went Wrong!', variant: 'destructive' })
     }
@@ -86,6 +77,7 @@ export function FormAddElement({ userId, closeDialog }: FormAddElementProps) {
   const updateUrl = () => {
     form.setValue('urlWebsite', window.location.href)
   }
+
   return (
     <div>
       <Form {...form}>
