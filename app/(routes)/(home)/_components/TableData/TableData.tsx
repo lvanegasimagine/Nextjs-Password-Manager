@@ -1,9 +1,9 @@
-import { type Element } from '@prisma/client'
+// import { type Element } from '@prisma/client'
 import { columns } from './Columns'
 import { DataTable } from './data-table'
 
 export interface TableDataProps {
-  elements: Element[]
+  elements: any[]
 }
 export const TableData = (props: TableDataProps) => {
   const { elements } = props
