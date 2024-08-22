@@ -5,8 +5,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
-  DialogDescription
+  DialogTitle
 } from '@/components/ui/dialog'
 import {
   DropdownMenu,
@@ -67,7 +66,7 @@ export function HeaderMain({ userId }: HeaderMainProps) {
           <DialogHeader>
             <DialogTitle>Nuevo Elemento</DialogTitle>
           </DialogHeader>
-          {typeElement === 'password' && <FormAddElement userId={userId}/>}
+          {typeElement === 'password' && <FormAddElement userId={userId} closeDialog={closeDialogAndDropdown}/>}
         </DialogContent>
       </Dialog>
     </div>

@@ -11,7 +11,7 @@ import { toast } from '@/components/ui/use-toast'
 import { type Element } from '@prisma/client'
 import { DropdownMenu } from '@radix-ui/react-dropdown-menu'
 import { type ColumnDef } from '@tanstack/react-table'
-import { Copy, MoreHorizontal, User } from 'lucide-react'
+import { Copy, MoreHorizontal, Pencil, User } from 'lucide-react'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -42,7 +42,7 @@ export const columns: Array<ColumnDef<ColumnProps>> = [
       const username = row.original.username
 
       const onEditElement = () => {
-        console.log('Editing Element')
+        window.location.href = `/element/${row.original.id}`
       }
 
       const copyItemClipboard = async (item: string, name: string) => {
@@ -77,7 +77,7 @@ export const columns: Array<ColumnDef<ColumnProps>> = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={onEditElement}>Edit</DropdownMenuItem>
+              <DropdownMenuItem onClick={onEditElement} className='cursor-pointer'><Pencil className='mr-4 w-4 h-4'/> Edit</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

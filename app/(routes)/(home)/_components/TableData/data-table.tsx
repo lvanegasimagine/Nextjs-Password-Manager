@@ -2,7 +2,8 @@
 
 import {
   type ColumnDef,
-  ColumnFiltersState,
+  type ColumnFiltersState,
+  getFilteredRowModel,
   flexRender,
   getCoreRowModel,
   useReactTable
@@ -16,6 +17,8 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table'
+import { Input } from '@/components/ui/input'
+import { useState } from 'react'
 
 interface DataTableProps<TData, TValue> {
   columns: Array<ColumnDef<TData, TValue>>
@@ -26,14 +29,30 @@ export function DataTable<TData, TValue>({
   columns,
   data
 }: DataTableProps<TData, TValue>) {
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const table = useReactTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel()
+    getCoreRowModel: getCoreRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
+    state: {
+      columnFilters
+    }
   })
 
   return (
     <div className="rounded-md border">
+      <div className="flex items-center p-4">
+        <Input
+          placeholder="Filter accounts..."
+          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+          onChange={(event) =>
+            table.getColumn('name')?.setFilterValue(event.target.value)
+          }
+          className="max-w-sm"
+        />
+      </div>
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (

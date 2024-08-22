@@ -1,6 +1,6 @@
 import { type Element } from '@prisma/client'
-import { DataTable } from './Data-Table'
 import { columns } from './Columns'
+import { DataTable } from './data-table'
 
 export interface TableDataProps {
   elements: Element[]
