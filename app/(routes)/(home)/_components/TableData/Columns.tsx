@@ -8,14 +8,14 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { toast } from '@/components/ui/use-toast'
-// import { Element } from '@prisma/client'
+import { type Element } from '@prisma/client'
 import { DropdownMenu } from '@radix-ui/react-dropdown-menu'
 import { type ColumnDef } from '@tanstack/react-table'
 import { Copy, MoreHorizontal, Pencil, User } from 'lucide-react'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type ColumnProps = any
+export type ColumnProps = Element
 
 export const columns: Array<ColumnDef<ColumnProps>> = [
   {

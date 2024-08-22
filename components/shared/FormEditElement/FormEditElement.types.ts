@@ -1,5 +1,5 @@
-// import { type Element } from '@prisma/client'
+import { type Element } from '@prisma/client'
 
 export interface FormEditElementProps {
-  dataElement: any
+  dataElement: Element
 }
