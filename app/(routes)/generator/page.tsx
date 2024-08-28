@@ -1,8 +1,13 @@
-import React from 'react'
+import React from "react"
+import { HeaderGenerator } from "./_components/HeaderGenerator"
+import { FormGenerator } from "./_components/FormGenerator"
 
 const GeneratorPage = () => {
   return (
-    <div>GeneratorPage</div>
+    <div>
+      <HeaderGenerator />
+      <FormGenerator/>
+    </div>
   )
 }
 
