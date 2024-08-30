@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react"
 import { PasswordGenerator } from "./PasswordGenerator"
 import { UserGenerator } from "./UserGenerator"
 import { generateCustomPassword } from "@/lib/generateCustomPassword"
+import { generateRandomUsername } from "@/lib/generateRandomUser"
 
 export const FormGenerator = () => {
   const [itemValueInput, setItemValueInput] = React.useState("")
@@ -34,6 +35,13 @@ export const FormGenerator = () => {
     }
   }, [lengthPassword, isMayusSelected, isMinusSelected, isNumberSelected, isSpecialCharacters, setSelectedValue])
 
+  useEffect(() => {
+    if (selectedValue === 'user') {
+      const newUserGenerated = generateRandomUsername()
+      setItemValueInput(newUserGenerated)
+    }
+  }, [selectedValue, userTypeSelected])
+
   const handleShuffleClick = () => {
     if (selectedValue === "password") {
       const newPassword = generateCustomPassword(
@@ -44,6 +52,13 @@ export const FormGenerator = () => {
         isSpecialCharacters
       )
       setItemValueInput(newPassword)
+    } else if (selectedValue === 'user') {
+      if (userTypeSelected === 'email') {
+        console.log('Email')
+      } else {
+        const username = generateRandomUsername()
+        setItemValueInput(username)
+      }
     }
   }
 
