@@ -32,7 +32,20 @@ export const FormGenerator = () => {
       )
       setItemValueInput(newPassword)
     }
-  }, [])
+  }, [lengthPassword, isMayusSelected, isMinusSelected, isNumberSelected, isSpecialCharacters, setSelectedValue])
+
+  const handleShuffleClick = () => {
+    if (selectedValue === "password") {
+      const newPassword = generateCustomPassword(
+        lengthPassword,
+        isMayusSelected,
+        isMinusSelected,
+        isNumberSelected,
+        isSpecialCharacters
+      )
+      setItemValueInput(newPassword)
+    }
+  }
 
   return (
     <div className="mt-5 max-w-2xl">
@@ -50,7 +63,7 @@ export const FormGenerator = () => {
             await CopyClipboard(itemValueInput)
           }}
         />
-        <Shuffle className="absolute right-2 top-3 h-5 w-5 cursor-pointer" />
+        <Shuffle className="absolute right-2 top-3 h-5 w-5 cursor-pointer" onClick={handleShuffleClick} />
       </div>
       <div className="my-4 rounded-md bg-slate-100 p-4 shadow-md">
         <p className="mb-4 text-slate-500">Que Quieres Generar?</p>
