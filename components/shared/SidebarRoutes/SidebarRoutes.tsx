@@ -13,6 +13,7 @@ import {
   DataSidebarConfiguration,
   DataSidebarElements
 } from './SidebarRoutes.data'
+import { signOut } from 'next-auth/react'
 
 export default function SidebarRoutes() {
   return (
@@ -97,9 +98,7 @@ export default function SidebarRoutes() {
       ))}
       <SingleItem href="/analytic" label="Analytics" icon={BarChart} />
       <SingleItem
-        onClick={() => {
-          alert('Logout')
-        }}
+        onClick={async () => await signOut()}
         href='#'
         label={'Close Session'}
         icon={DoorClosed}
