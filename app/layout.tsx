@@ -10,7 +10,8 @@ const inter = Poppins({
 
 export const metadata: Metadata = {
   title: 'Admin Password',
-  description: 'Creating a password manager with Next.js and TailwindCSS'
+  description: 'Creating a password manager with Next.js and TailwindCSS',
+  manifest: '/manifest.json'
 }
 
 export default function RootLayout({
