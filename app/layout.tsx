@@ -9,8 +9,8 @@ const inter = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'Admin Password',
-  description: 'Creating a password manager with Next.js and TailwindCSS',
+  title: 'Vanegas Password Manager',
+  description: 'Creating a password manager with Next.js, Shadcn and TailwindCSS',
   manifest: '/manifest.json'
 }
 
